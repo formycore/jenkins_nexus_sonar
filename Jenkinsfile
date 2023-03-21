@@ -48,8 +48,14 @@ pipeline {
             }
         }
         stage ('Upload artifact to nexus'){
+// here the scenario comes if the developer updates the code, with change in version, then we need to we need to change the 
+//version here, manage plugins -> piepline-utility-steps -> check for the read pom using pipeline-utilities
+// in the script section we define a variable 
+
             steps {
                 script{
+                    def readPomVersion = readMavenPom file 'pom.xml'
+                    // we are reading the pom file 
                     nexusArtifactUploader artifacts: [
                         [
                             artifactId: 'springboot', 
@@ -64,7 +70,10 @@ pipeline {
                             nexusVersion: 'nexus3', 
                             protocol: 'http', 
                             repository: 'demoapp-release', 
-                            version: '1.0.0'
+                            //version: '1.0.0'
+                            version: "${readPomVersion.version}"
+                            // from the line no 57 def we will get the version dynamically
+                      
                 }
             }
         }
