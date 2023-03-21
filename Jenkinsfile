@@ -1,6 +1,8 @@
 // https://github.com/vikash-kumar01/demo-counter-app.git
 pipeline {
     agent any
+    // installed the maven jenkins,
+    // maven plugin install, global tool configuration , name : 3.6.3 , version -> Saveit
     tools {
         maven '3.6.3'
     }
