@@ -78,7 +78,7 @@ pipeline {
                             nexusUrl: '34.29.226.153:8081', 
                             nexusVersion: 'nexus3', 
                             protocol: 'http', 
-                            repository: "${nexusRepo}"
+                            repository: "${nexusRepo}",
                             //version: '1.0.0'
                             version: "${readPomVersion.version}"
                             // from the line no 57 def we will get the version dynamically
