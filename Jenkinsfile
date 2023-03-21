@@ -64,6 +64,8 @@ pipeline {
 // readMavenPom.version.endsWith("SNAPSHOT") ? "this repo" :(or) "this repo"
 // to store the snapshot we need one more repo under nexus
                     def nexusRepo = readPomVersion.version.endsWith("SNAPSHOT") ? "demoapp-snapshot": "demoapp-release"
+                    // (error) artifact is already deployed with that version if it is a release (not -SNAPSHOT version)
+                    // (error) Deploy the same version of a release artifact more than once to a release repository
 
                     nexusArtifactUploader artifacts: [
                         [
