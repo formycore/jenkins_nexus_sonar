@@ -38,6 +38,33 @@ pipeline {
             steps {
                 script {
                     waitForQualityGate abortPipeline: false, credentialsId: 'secreta'
+// here we will get error checking for the sonarqube task some <id>
+// we need to create a sonarqube webhook
+//sonarqube -> administration -> configuration-> webhooks -> Name: jenkins_webhook
+// URL: http://<jenkins-url:8080>/sonarqube-webhook/ -> save it
+// re run it 
+                    
+                }
+            }
+        }
+        stage ('Upload artifact to nexus'){
+            steps {
+                script{
+                    nexusArtifactUploader artifacts: [
+                        [
+                            artifactId: 'springboot', 
+                            classifier: '', 
+                            file: 'target/Uber.jar', 
+                            type: 'jar'
+                        ]
+                            ],
+                            credentialsId: 'nexus-auth',
+                            groupId: 'com.example', 
+                            nexusUrl: '34.29.226.153:8081', 
+                            nexusVersion: 'nexus3', 
+                            protocol: 'http', 
+                            repository: 'demoapp-release', 
+                            version: '1.0.0'
                 }
             }
         }
