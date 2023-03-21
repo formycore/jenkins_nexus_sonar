@@ -58,6 +58,13 @@ pipeline {
                 script{
                     def readPomVersion = readMavenPom file: 'pom.xml'
                     // we are reading the pom file 
+// how we will get to know this build is for snapshot or not 
+// in the pom.xml file the version 1.0.0-SNAPSHOT 
+// conditional statement is used, we need to switch b/w 2 repos using the keyword
+// readMavenPom.version.endsWith("SNAPSHOT") ? "this repo" :(or) "this repo"
+// to store the snapshot we need one more repo under nexus
+                    def nexusRepo = readPomVersion.version.endsWith("SNAPSHOT") ? "demoapp-snapshot": "demoapp-release'"
+
                     nexusArtifactUploader artifacts: [
                         [
                             artifactId: 'springboot', 
@@ -71,7 +78,7 @@ pipeline {
                             nexusUrl: '34.29.226.153:8081', 
                             nexusVersion: 'nexus3', 
                             protocol: 'http', 
-                            repository: 'demoapp-release', 
+                            repository: ${nexusRepo} 
                             //version: '1.0.0'
                             version: "${readPomVersion.version}"
                             // from the line no 57 def we will get the version dynamically
