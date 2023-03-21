@@ -2,4 +2,4 @@
 git add .
 git status
 git commit -m "added"
-git push origim master
+git push origin master
