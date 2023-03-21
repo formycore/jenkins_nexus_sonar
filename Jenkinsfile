@@ -63,7 +63,7 @@ pipeline {
 // conditional statement is used, we need to switch b/w 2 repos using the keyword
 // readMavenPom.version.endsWith("SNAPSHOT") ? "this repo" :(or) "this repo"
 // to store the snapshot we need one more repo under nexus
-                    def nexusRepo = readPomVersion.version.endsWith("SNAPSHOT") ? "demoapp-snapshot": "demoapp-release'"
+                    def nexusRepo = readPomVersion.version.endsWith("SNAPSHOT") ? "demoapp-snapshot": "demoapp-release"
 
                     nexusArtifactUploader artifacts: [
                         [
