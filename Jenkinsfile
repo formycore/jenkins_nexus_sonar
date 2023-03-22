@@ -97,5 +97,16 @@ pipeline {
                 }
             }
         }
+        stage ('Docker Push '){
+            steps {
+                script {
+                    withCredentials([string(credentialsId: 'docker_auth', variable: 'docker')]) {
+                        sh "docker login -u formycore -p ${docker}"
+                        sh "docker image push formycore/$JOB_NAME:v1.$BUILD_ID"
+                        sh "docker image push formycore/$JOB_NAME:latest"
+}
+                }
+            }
+        }
     }
 }
