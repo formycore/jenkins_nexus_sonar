@@ -30,7 +30,7 @@ pipeline {
         stage ('Static Code Analysis'){
             steps {
                 script {
-            withSonarQubeEnv(credentialsId: 'secreta') {
+            withSonarQubeEnv(credentialsId: 'secretb') {
                 sh 'mvn clean package sonar:sonar'
             }
             }
@@ -39,7 +39,7 @@ pipeline {
         stage ('Quality Gate Analysis'){
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'secreta'
+                    waitForQualityGate abortPipeline: false, credentialsId: 'secretb'
 // here we will get error checking for the sonarqube task some <id>
 // we need to create a sonarqube webhook
 //sonarqube -> administration -> configuration-> webhooks -> Name: jenkins_webhook
